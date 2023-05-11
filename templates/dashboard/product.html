@@ -1,0 +1,76 @@
+{% extends 'partials/base.html' %}
+{% block title %}Product Page {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% include 'partials/topnav.html' %}
+ <!--Table-->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-4">
+                {% for message in messages %}
+                {% if message %}
+                <div class = "alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="border bg-white p-3">
+                    <h4>Add Products</h4>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input class="btn btn-success btn-block" type="submit" value="Add Product">
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">Date</th>
+                            <th scope="col">Brand Name</th>
+                            <th scope="col">Supplier Name</th>
+                            <th scope="col">Counts</th>
+                            <th scope="col">Manufacturer</th>
+                            <th scope="col">Quantity recieved</th>
+                            <th scope="col">Batch.No</th>
+                            <th scope="col">Expiry Date</th>
+                            <th scope="col">Purchase Rate</th>
+                            <th scope="col">M.R.P PER UNIT</th>
+                            <th scope="col">RACK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>{{ item.date }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.suppliers_name }}</td>
+                            <td>{{ item.counts }}</td>
+                            <td>{{ item.manufacturer }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.batch_number }}</td>
+                            <td>{{ item.expiry_date }}</td>
+                            <td>{{ item.purchase_rate }}</td>
+                            <td>{{ item.mrp_per_unit }}</td>
+                            <td>{{ item.rack }}</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'dashboard-product_update' item.id %}">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{% url 'dashboard-product_delete' item.id %}">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--End Table-->
+ {% endblock %}

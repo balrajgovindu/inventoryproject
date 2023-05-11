@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% block title %}Order Page {% endblock %}
+
+{% block content %}
+
+{% include 'partials/topnav.html' %}
+<!--Table-->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">Date</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">counts</th>
+                            <th scope="col">Manufacturer</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Batch.No</th>
+                            <th scope="col">Expiry Date</th>
+                            <th scope="col">Price per unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for orders in orders %}
+                        <tr>
+                            <td>{{ orders.date }}</td>
+                            <td>{{ orders.product }}</td>
+                            <td>{{ orders.product.count }}</td>
+                            <td>{{ orders.product.vendor }}</td>
+                            <td>{{ orders.order_quantity }}</td>
+                            <td>{{ orders.product.b_number }}</td>
+                            <td>
+                                {{ orders.product.exp_date }}
+                            </td>
+                            <td>
+                                {{ orders.product.price_per_unit }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--End Table-->
+
+{% endblock %}
